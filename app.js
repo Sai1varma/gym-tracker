@@ -148,8 +148,12 @@ function renderSummary(data) {
     }
   }
 
-  const logged = workouts + skips;
   const pct = totalDays > 0 ? Math.round((workouts / totalDays) * 100) : 0;
+
+  // Days remaining = days after today in the viewed month (0 for past/future months)
+  const now = new Date();
+  const isCurrentMonth = currentYear === now.getFullYear() && currentMonth === now.getMonth();
+  const daysLeft = isCurrentMonth ? totalDays - now.getDate() : 0;
 
   document.getElementById('monthlySummary').innerHTML = `
     <div class="summary-title">${MONTHS[currentMonth]} ${currentYear} — Summary</div>
@@ -167,7 +171,7 @@ function renderSummary(data) {
         <div class="stat-lbl">Consistency</div>
       </div>
       <div class="stat-box">
-        <div class="stat-num" style="color:var(--text)">${totalDays - logged}</div>
+        <div class="stat-num" style="color:var(--text)">${daysLeft}</div>
         <div class="stat-lbl">Days left</div>
       </div>
     </div>
