@@ -35,21 +35,25 @@ function todayKey() {
 }
 
 // ===== STREAK CALCULATION =====
+// Rule: streak survives 1 missed day in a row. 2 consecutive non-workout days = streak broken.
 function calcStreak(data) {
   let streak = 0;
+  let missedInARow = 0;
   const t = new Date();
-  // Walk backwards from today
+
   for (let i = 0; i < 365; i++) {
     const d = new Date(t);
     d.setDate(t.getDate() - i);
     const k = dateKey(d.getFullYear(), d.getMonth(), d.getDate());
-    if (data[k] && data[k].type === 'workout') {
+    const isWorkout = data[k] && data[k].type === 'workout';
+
+    if (isWorkout) {
       streak++;
-    } else if (i === 0) {
-      // today not logged yet — don't break streak
-      continue;
+      missedInARow = 0;
     } else {
-      break;
+      // Allow today or yesterday to be unlogged without penalising
+      missedInARow++;
+      if (missedInARow >= 2) break; // 2 non-workout days in a row = streak lost
     }
   }
   return streak;
