@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gym Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">🏋️</span>
+        <div>
+          <h1>GymLog</h1>
+          <p class="tagline">Track every rep, every rest day.</p>
+        </div>
+      </div>
+      <div class="streak-badge" id="streakBadge">
+        <span class="streak-fire">🔥</span>
+        <span id="streakCount">0</span>
+        <span class="streak-label">day streak</span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="calendar-controls">
+      <button class="nav-btn" id="prevMonth">&#8592;</button>
+      <div class="month-year" id="monthYear">June 2025</div>
+      <button class="nav-btn" id="nextMonth">&#8594;</button>
+    </section>
+
+    <section class="legend">
+      <span class="legend-item"><span class="dot worked"></span>Workout</span>
+      <span class="legend-item"><span class="dot rested"></span>Rest / Skip</span>
+      <span class="legend-item"><span class="dot empty"></span>No entry</span>
+    </section>
+
+    <section class="calendar-grid" id="calendarGrid"></section>
+
+    <section class="monthly-summary" id="monthlySummary"></section>
+  </main>
+
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <h2 class="modal-date" id="modalDate"></h2>
+
+      <div class="type-toggle">
+        <button class="type-btn active" id="btnWorkout" data-type="workout">✅ Workout</button>
+        <button class="type-btn" id="btnSkip" data-type="skip">❌ Skipped</button>
+      </div>
+
+      <div id="workoutFields">
+        <label>Muscle Group / Activity</label>
+        <div class="tag-row" id="tagRow">
+          <button class="tag" data-val="Chest">Chest</button>
+          <button class="tag" data-val="Back">Back</button>
+          <button class="tag" data-val="Shoulders">Shoulders</button>
+          <button class="tag" data-val="Arms">Arms</button>
+          <button class="tag" data-val="Legs">Legs</button>
+          <button class="tag" data-val="Core">Core</button>
+          <button class="tag" data-val="Cardio">Cardio</button>
+          <button class="tag" data-val="Full Body">Full Body</button>
+        </div>
+        <label style="margin-top:12px;">Notes <span class="optional">(optional)</span></label>
+        <textarea id="workoutNote" placeholder="e.g. 4x10 bench press, hit a new PR on squats…"></textarea>
+      </div>
+
+      <div id="skipFields" class="hidden">
+        <label>Reason for skipping</label>
+        <div class="tag-row" id="skipTagRow">
+          <button class="tag" data-val="Sick">Sick</button>
+          <button class="tag" data-val="Travel">Travel</button>
+          <button class="tag" data-val="Rest day">Rest day</button>
+          <button class="tag" data-val="Too tired">Too tired</button>
+          <button class="tag" data-val="Work">Work</button>
+        </div>
+        <label style="margin-top:12px;">Notes <span class="optional">(optional)</span></label>
+        <textarea id="skipNote" placeholder="Anything else you want to remember…"></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-save" id="saveBtn">Save</button>
+        <button class="btn-delete hidden" id="deleteBtn">Remove Entry</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
