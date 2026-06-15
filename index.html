@@ -3,48 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gym Tracker</title>
+  <title>GymLog</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
 </head>
 <body>
 
-  <header>
-    <div class="header-inner">
-      <div class="logo">
-        <span class="logo-icon">🏋️</span>
-        <div>
-          <h1>GymLog</h1>
-          <p class="tagline">Track every rep, every rest day.</p>
-        </div>
-      </div>
-      <div class="streak-badge" id="streakBadge">
-        <span class="streak-fire">🔥</span>
-        <span id="streakCount">0</span>
-        <span class="streak-label">day streak</span>
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div id="loginScreen" class="login-screen hidden">
+    <div class="login-card">
+      <div class="login-logo">🏋️</div>
+      <h1 class="login-title">GymLog</h1>
+      <p class="login-sub">Sign in to continue</p>
+      <div class="login-fields">
+        <input type="text" id="loginUser" placeholder="Username" autocomplete="username" />
+        <input type="password" id="loginPass" placeholder="Password" autocomplete="current-password" />
+        <p class="login-error hidden" id="loginError">Incorrect username or password.</p>
+        <button class="btn-login" id="loginBtn">Sign In</button>
       </div>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <section class="calendar-controls">
-      <button class="nav-btn" id="prevMonth">&#8592;</button>
-      <div class="month-year" id="monthYear">June 2025</div>
-      <button class="nav-btn" id="nextMonth">&#8594;</button>
-    </section>
+  <!-- ===== MAIN APP ===== -->
+  <div id="appScreen" class="hidden">
 
-    <section class="legend">
-      <span class="legend-item"><span class="dot worked"></span>Workout</span>
-      <span class="legend-item"><span class="dot rested"></span>Rest / Skip</span>
-      <span class="legend-item"><span class="dot empty"></span>No entry</span>
-    </section>
+    <header>
+      <div class="header-inner">
+        <div class="logo">
+          <span class="logo-icon">🏋️</span>
+          <div>
+            <h1>GymLog</h1>
+            <p class="tagline">Track every rep, every rest day.</p>
+          </div>
+        </div>
+        <div class="header-right">
+          <div class="streak-badge" id="streakBadge">
+            <span class="streak-fire">🔥</span>
+            <span id="streakCount">0</span>
+            <span class="streak-label">day streak</span>
+          </div>
+          <button class="logout-btn" id="logoutBtn" title="Sign out">⏻</button>
+        </div>
+      </div>
+    </header>
 
-    <section class="calendar-grid" id="calendarGrid"></section>
+    <main>
+      <!-- Loading state -->
+      <div id="loadingState" class="loading-state">
+        <div class="spinner"></div>
+        <p>Loading your data…</p>
+      </div>
 
-    <section class="monthly-summary" id="monthlySummary"></section>
-  </main>
+      <div id="appContent" class="hidden">
+        <section class="calendar-controls">
+          <button class="nav-btn" id="prevMonth">&#8592;</button>
+          <div class="month-year" id="monthYear">June 2025</div>
+          <button class="nav-btn" id="nextMonth">&#8594;</button>
+        </section>
 
-  <!-- Modal -->
+        <section class="legend">
+          <span class="legend-item"><span class="dot worked"></span>Workout</span>
+          <span class="legend-item"><span class="dot rested"></span>Rest / Skip</span>
+          <span class="legend-item"><span class="dot empty"></span>No entry</span>
+        </section>
+
+        <section class="calendar-grid" id="calendarGrid"></section>
+        <section class="monthly-summary" id="monthlySummary"></section>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ===== ENTRY MODAL ===== -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="modal">
       <button class="modal-close" id="modalClose">&times;</button>
@@ -91,6 +121,8 @@
     </div>
   </div>
 
+  <script src="db.js"></script>
+  <script src="auth.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
